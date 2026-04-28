@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Order } from './entities/order.entity.ts';
+import { Order } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
-import { CreateOrderDto } from './dto/create-order.dto.ts/index.js';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
-import { AddItemToOrderDto } from './dto/add-item-to-order.dto.ts/index.js';
+import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -15,10 +15,6 @@ export class OrdersService {
         @InjectRepository(OrderItem)
         private readonly orderItemRepository: Repository<OrderItem>
     ){}
-
-    findAll(){
-        return this.orderRepository;
-    }
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
         const order = this.orderRepository.create({
