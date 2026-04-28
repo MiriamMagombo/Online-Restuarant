@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/MiriamMagombo/Online-Restuarant#readme",
   "dependencies": {
+    "@nestjs/config": "^4.0.4",
     "@nestjs/typeorm": "^11.0.1",
+    "oracledb": "^6.10.0",
     "typeorm": "^0.3.28"
   }
 }
