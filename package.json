@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/MiriamMagombo/Online-Restuarant/issues"
   },
-  "homepage": "https://github.com/MiriamMagombo/Online-Restuarant#readme"
+  "homepage": "https://github.com/MiriamMagombo/Online-Restuarant#readme",
+  "dependencies": {
+    "@nestjs/typeorm": "^11.0.1",
+    "typeorm": "^0.3.28"
+  }
 }
