@@ -1,9 +1,14 @@
+export class MenuModule {}
 import { Module } from '@nestjs/common';
-import { MenuController } from './menu.controller';
-import { MenuService } from './menu.service';
+import {MenuService} from './menu.service';
+import { MenuController } from './owner.controller';
+import {Menu} from './entities/menu.entity';
+import { OwnerModule } from './owner.module';
+import { OwnerController } from './owner.controller';
 
 @Module({
-  controllers: [MenuController],
-  providers: [MenuService]
+    imports : [TypeOrmModule.forFeature([Menu]), OwnerModule],
+    providers:[MenuService],
+    controllers: [MenuController, OwnerController]
 })
-export class MenuModule {}
+export class OwnerModule {}
