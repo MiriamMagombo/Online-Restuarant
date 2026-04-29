@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Order } from './entities/order.entity.ts';
-import { OrderItem } from './entities/order-item.entity';
-import { CreateOrderDto } from './dto/create-order.dto.ts/index.js';
+import { Order } from './entities/order.entity';           
+import { OrderItem } from './entities/order-item.entity';  
+import { CreateOrderDto } from './dto/create-order.dto';   
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
-import { AddItemToOrderDto } from './dto/add-item-to-order.dto.ts/index.js';
+import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -92,5 +92,15 @@ export class OrdersService {
     }
     private generatedQrCode(): string{
         return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
+    }
+
+    async removeItemFromOrder(orderId: number, itemId: number): Promise<Order>{
+        const order = await this.findOne(orderId);
+        const item = order.items.find(i => i.id === itemId);
+        if (!item) {
+            throw new BadRequestException('Item not found in order');
+        }
+        await this.orderItemRepository.remove(item);
+        return this.findOne(orderId);
     }
 }

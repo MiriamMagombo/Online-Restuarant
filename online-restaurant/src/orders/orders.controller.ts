@@ -1,8 +1,8 @@
-import { Controller ,Body, Get, Param, Post, Patch, Put, Delete} from '@nestjs/common';
+import { Controller ,Body, Get, Param, Post, Patch, Put, Delete, ParseIntPipe} from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { CreateOrderDto } from './dto/create-order.dto.ts';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
-import { AddItemToOrderDto } from './dto/add-item-to-order.dto.ts';
+import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -37,7 +37,7 @@ export class OrdersController {
     }
 
     @Delete(':id/items/:itemId')
-    removeItemFromOrder(@Param('id') id: number, @Param('itemId') itemId: number){
+    async removeItemFromOrder(@Param('id') id: number, @Param('itemId', ParseIntPipe) itemId: number){
       return this.ordersService.removeItemFromOrder(id, itemId);
     }
 }
