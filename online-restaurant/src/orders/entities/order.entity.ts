@@ -1,16 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { OrderItem } from './order-item.entity';
+import { OrderStatus } from '../dto/update-order-status.dto';
 
 @Entity()
 export class Order{
     @PrimaryGeneratedColumn()
     id!: number;
 
+    @Column({
+      type: 'enum',
+      enum: OrderStatus,
+      default: OrderStatus.PENDING
+    })
+
     @Column()
     userId!: number;
 
     @Column()
-    status!: string;
+    status!: OrderStatus;
 
     @Column()
     startTime!: Date;
