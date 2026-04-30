@@ -1,4 +1,4 @@
-import { MenuService } from './menuService';
+import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 export declare class MenuController {

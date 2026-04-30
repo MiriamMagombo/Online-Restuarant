@@ -26,7 +26,7 @@ let OrdersService = class OrdersService {
         this.orderItemRepository = orderItemRepository;
     }
     findAll() {
-        return this.orderRepository;
+        return this.orderRepository.find(({ relations: ['items'] }));
     }
     async create(createOrderDto) {
         const order = this.orderRepository.create({
