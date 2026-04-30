@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersController = void 0;
 const common_1 = require("@nestjs/common");
@@ -42,7 +41,7 @@ let OrdersController = class OrdersController {
     markDeliveredByQr(id, qrCode) {
         return this.ordersService.markDeliveredByQr(qrCode);
     }
-    removeItemFromOrder(id, itemId) {
+    async removeItemFromOrder(id, itemId) {
         return this.ordersService.removeItemFromOrder(id, itemId);
     }
 };
@@ -64,7 +63,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof create_order_dto_1.CreateOrderDto !== "undefined" && create_order_dto_1.CreateOrderDto) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "create", null);
 __decorate([
@@ -72,7 +71,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, typeof (_b = typeof update_order_status_dto_1.UpdateOrderStatusDto !== "undefined" && update_order_status_dto_1.UpdateOrderStatusDto) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [Number, update_order_status_dto_1.UpdateOrderStatusDto]),
     __metadata("design:returntype", void 0)
 ], OrdersController.prototype, "updateStatus", null);
 __decorate([
@@ -80,7 +79,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, typeof (_c = typeof add_item_to_order_dto_1.AddItemToOrderDto !== "undefined" && add_item_to_order_dto_1.AddItemToOrderDto) === "function" ? _c : Object]),
+    __metadata("design:paramtypes", [Number, add_item_to_order_dto_1.AddItemToOrderDto]),
     __metadata("design:returntype", void 0)
 ], OrdersController.prototype, "addItemToOrder", null);
 __decorate([
@@ -94,10 +93,10 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id/items/:itemId'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Param)('itemId')),
+    __param(1, (0, common_1.Param)('itemId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "removeItemFromOrder", null);
 exports.OrdersController = OrdersController = __decorate([
     (0, common_1.Controller)('orders'),

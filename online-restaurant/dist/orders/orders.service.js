@@ -11,13 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const order_entity_ts_1 = require("./entities/order.entity.ts");
+const order_entity_1 = require("./entities/order.entity");
 const order_item_entity_1 = require("./entities/order-item.entity");
 let OrdersService = class OrdersService {
     orderRepository;
@@ -96,12 +95,22 @@ let OrdersService = class OrdersService {
     generatedQrCode() {
         return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
     }
+    async removeItemFromOrder(orderId, itemId) {
+        const order = await this.findOne(orderId);
+        const item = order.items.find(i => i.id === itemId);
+        if (!item) {
+            throw new common_1.BadRequestException('Item not found in order');
+        }
+        await this.orderItemRepository.remove(item);
+        return this.findOne(orderId);
+    }
 };
 exports.OrdersService = OrdersService;
 exports.OrdersService = OrdersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(order_entity_ts_1.Order)),
+    __param(0, (0, typeorm_1.InjectRepository)(order_entity_1.Order)),
     __param(1, (0, typeorm_1.InjectRepository)(order_item_entity_1.OrderItem)),
-    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _b : Object])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], OrdersService);
 //# sourceMappingURL=orders.service.js.map
