@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Order } from './entities/order.entity;
-import { OrderItem } from './entities/order-item.entity';
-import { CreateOrderDto } from './dto/create-order.dto;
+import { Order } from './entities/order.entity';           
+import { OrderItem } from './entities/order-item.entity'; 
+import { OrderStatus } from './dto/update-order-status.dto'; 
+import { CreateOrderDto } from './dto/create-order.dto';   
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
 
@@ -16,8 +17,8 @@ export class OrdersService {
         private readonly orderItemRepository: Repository<OrderItem>
     ){}
 
-    findAll(){
-        return this.orderRepository;
+    findAll(): Promise<Order[]>{
+        return this.orderRepository.find(({ relations: ['items'] }));
     }
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
@@ -33,7 +34,7 @@ export class OrdersService {
 
         if(createOrderDto.items && createOrderDto.items.length > 0){
             const items = createOrderDto.items.map(item => this.orderItemRepository.create({
-                orderId: savedOrder.id,
+                order: savedOrder,
                 menuId: item.menuId,
                 quantity: item.quantity,
             })
@@ -86,11 +87,21 @@ export class OrdersService {
         if(order.status === 'Delivered'){
             throw new BadRequestException('Order already delivered');
         }
-        order.status = 'Delivered';
+        order.status = OrderStatus.DELIVERED;
         order.deliveredAt = new Date();
         return this.orderRepository.save(order);
     }
     private generatedQrCode(): string{
         return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
+    }
+
+    async removeItemFromOrder(orderId: number, itemId: number): Promise<Order>{
+        const order = await this.findOne(orderId);
+        const item = order.items.find(i => i.id === itemId);
+        if (!item) {
+            throw new BadRequestException('Item not found in order');
+        }
+        await this.orderItemRepository.remove(item);
+        return this.findOne(orderId);
     }
 }

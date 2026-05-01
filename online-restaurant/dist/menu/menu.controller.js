@@ -11,18 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
-const menuService_1 = require("./menuService");
+const menu_service_1 = require("./menu.service");
+const create_menu_dto_1 = require("./dto/create-menu.dto");
+const update_menu_dto_1 = require("./dto/update-menu.dto");
 let MenuController = class MenuController {
     menuService;
     constructor(menuService) {
         this.menuService = menuService;
     }
-    postMenu() {
-        return this.menuService.postMenu();
+    create(createMenuDto) {
+        return this.menuService.create(createMenuDto);
     }
     findAll() {
         return this.menuService.findAll();
@@ -30,8 +32,8 @@ let MenuController = class MenuController {
     findOne(id) {
         return this.menuService.findOne(+id);
     }
-    update(id, updateMenu) {
-        return this.menuService.update(+id, updateMenu);
+    update(id, updateMenuDto) {
+        return this.menuService.update(+id, updateMenuDto);
     }
     remove(id) {
         return this.menuService.remove(+id);
@@ -40,10 +42,11 @@ let MenuController = class MenuController {
 exports.MenuController = MenuController;
 __decorate([
     (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], MenuController.prototype, "postMenu", null);
+    __metadata("design:paramtypes", [typeof (_a = typeof create_menu_dto_1.CreateMenuDto !== "undefined" && create_menu_dto_1.CreateMenuDto) === "function" ? _a : Object]),
+    __metadata("design:returntype", void 0)
+], MenuController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -62,7 +65,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, typeof (_b = typeof update_menu_dto_1.UpdateMenuDto !== "undefined" && update_menu_dto_1.UpdateMenuDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], MenuController.prototype, "update", null);
 __decorate([
@@ -74,6 +77,6 @@ __decorate([
 ], MenuController.prototype, "remove", null);
 exports.MenuController = MenuController = __decorate([
     (0, common_1.Controller)('menu'),
-    __metadata("design:paramtypes", [typeof (_a = typeof menuService_1.MenuService !== "undefined" && menuService_1.MenuService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [menu_service_1.MenuService])
 ], MenuController);
-//# sourceMappingURL=onwer.controller.js.map
+//# sourceMappingURL=menu.controller.js.map
