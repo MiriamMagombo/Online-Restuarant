@@ -2,7 +2,8 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';           
-import { OrderItem } from './entities/order-item.entity';  
+import { OrderItem } from './entities/order-item.entity'; 
+import { OrderStatus } from './dto/update-order-status.dto'; 
 import { CreateOrderDto } from './dto/create-order.dto';   
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
@@ -86,7 +87,7 @@ export class OrdersService {
         if(order.status === 'Delivered'){
             throw new BadRequestException('Order already delivered');
         }
-        order.status = 'Delivered';
+        order.status = OrderStatus.DELIVERED;
         order.deliveredAt = new Date();
         return this.orderRepository.save(order);
     }
