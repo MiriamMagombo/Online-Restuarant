@@ -9,38 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderItem = void 0;
-const typeorm_1 = require("typeorm");
-const order_entity_1 = require("./order.entity");
-let OrderItem = class OrderItem {
-    id;
-    orderId;
+exports.CreateOrderDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+class OrderItemDto {
     menuId;
     quantity;
-    order;
-};
-exports.OrderItem = OrderItem;
+}
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], OrderItem.prototype, "id", void 0);
+], OrderItemDto.prototype, "menuId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], OrderItem.prototype, "orderId", void 0);
+], OrderItemDto.prototype, "quantity", void 0);
+class CreateOrderDto {
+    userId;
+    items;
+}
+exports.CreateOrderDto = CreateOrderDto;
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], OrderItem.prototype, "menuId", void 0);
+], CreateOrderDto.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], OrderItem.prototype, "quantity", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, order => order.items),
-    __metadata("design:type", order_entity_1.Order)
-], OrderItem.prototype, "order", void 0);
-exports.OrderItem = OrderItem = __decorate([
-    (0, typeorm_1.Entity)()
-], OrderItem);
-//# sourceMappingURL=order-item.entity.js.map
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => OrderItemDto),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], CreateOrderDto.prototype, "items", void 0);
+//# sourceMappingURL=create-order.dto.js.map

@@ -12,14 +12,13 @@ export class Order{
       enum: OrderStatus,
       default: OrderStatus.PENDING
     })
+    status!: OrderStatus;
 
     @Column()
     userId!: number;
 
-    @Column()
-    status!: OrderStatus;
 
-    @Column()
+    @Column({default: 'pending'})
     startTime!: Date;
 
     @Column({ unique: true})

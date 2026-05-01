@@ -9,38 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderItem = void 0;
+exports.Menu = void 0;
 const typeorm_1 = require("typeorm");
-const order_entity_1 = require("./order.entity");
-let OrderItem = class OrderItem {
+let Menu = class Menu {
     id;
-    orderId;
-    menuId;
-    quantity;
-    order;
+    name;
+    price;
+    description;
 };
-exports.OrderItem = OrderItem;
+exports.Menu = Menu;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_1.primaryGenerationColumn)(),
     __metadata("design:type", Number)
-], OrderItem.prototype, "id", void 0);
+], Menu.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], OrderItem.prototype, "orderId", void 0);
+    __metadata("design:type", String)
+], Menu.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('decimal'),
     __metadata("design:type", Number)
-], OrderItem.prototype, "menuId", void 0);
+], Menu.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], OrderItem.prototype, "quantity", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, order => order.items),
-    __metadata("design:type", order_entity_1.Order)
-], OrderItem.prototype, "order", void 0);
-exports.OrderItem = OrderItem = __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Menu.prototype, "description", void 0);
+exports.Menu = Menu = __decorate([
     (0, typeorm_1.Entity)()
-], OrderItem);
-//# sourceMappingURL=order-item.entity.js.map
+], Menu);
+//# sourceMappingURL=menu.entity.js.map

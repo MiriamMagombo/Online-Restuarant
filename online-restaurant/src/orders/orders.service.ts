@@ -17,8 +17,8 @@ export class OrdersService {
         private readonly orderItemRepository: Repository<OrderItem>
     ){}
 
-    findAll(){
-        return this.orderRepository;
+    findAll(): Promise<Order[]>{
+        return this.orderRepository.find(({ relations: ['items'] }));
     }
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
