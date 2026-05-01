@@ -1,0 +1,29 @@
+{
+  "name": "online-restuarant",
+  "version": "1.0.0",
+  "description": "This is a repository for group 11 Tuesday",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiriamMagombo/Online-Restuarant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MiriamMagombo/Online-Restuarant/issues"
+  },
+  "homepage": "https://github.com/MiriamMagombo/Online-Restuarant#readme",
+  "dependencies": {
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/typeorm": "^11.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "oracledb": "^6.10.0",
+    "typeorm": "^0.3.28"
+  }
+}
