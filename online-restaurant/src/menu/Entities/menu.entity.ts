@@ -1,18 +1,16 @@
-import {Entity,primaryGenerationColumn, Column} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Menu {
-    @primaryGenerationColumn()
-    id!:number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
+  @Column()
+  name!: string;
 
-@Column()
-name!:string;
+  @Column('decimal', { precision: 10, scale: 2 })
+  price!: number;
 
-@Column('decimal')
-price!:number;
-
-@Column({ nullable: true})
-description?: string;
-
+  @Column({ nullable: true })
+  description?: string;
 }
