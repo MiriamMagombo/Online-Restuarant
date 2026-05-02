@@ -12,12 +12,37 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const orders_module_1 = require("./orders/orders.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("./users/entities/user.entity");
+const order_entity_1 = require("./orders/entities/order.entity");
+const order_item_entity_1 = require("./orders/entities/order-item.entity");
+const menu_entity_1 = require("./menu/entities/menu.entity");
+const menu_module_1 = require("./menu/menu.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, orders_module_1.OrdersModule],
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (config) => ({
+                    type: 'oracle',
+                    host: config.get('DB_HOST'),
+                    port: parseInt(config.get('DB_PORT', '1521')),
+                    username: config.get('DB_USERNAME'),
+                    password: config.get('DB_PASSWORD'),
+                    serviceName: config.get('DB_SERVICE_NAME'),
+                    synchronize: config.get('DB_SYNCHRONIZE') === 'true',
+                    entities: [menu_entity_1.Menu, order_entity_1.Order, order_item_entity_1.OrderItem, user_entity_1.User],
+                    logging: true,
+                }),
+            }),
+            menu_module_1.MenuModule, users_module_1.UsersModule, orders_module_1.OrdersModule
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

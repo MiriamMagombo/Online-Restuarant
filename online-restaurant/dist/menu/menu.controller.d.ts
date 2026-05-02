@@ -4,9 +4,9 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 export declare class MenuController {
     private readonly menuService;
     constructor(menuService: MenuService);
-    create(createMenuDto: CreateMenuDto): any;
-    findAll(): any;
-    findOne(id: string): any;
-    update(id: string, updateMenuDto: UpdateMenuDto): any;
-    remove(id: string): any;
+    create(createMenuDto: CreateMenuDto): Promise<import("./entities/menu.entity").Menu>;
+    findAll(): Promise<import("./entities/menu.entity").Menu[]>;
+    findOne(id: string): Promise<import("./entities/menu.entity").Menu>;
+    update(id: string, updateMenuDto: UpdateMenuDto): Promise<import("./entities/menu.entity").Menu>;
+    remove(id: string): Promise<import("./entities/menu.entity").Menu>;
 }

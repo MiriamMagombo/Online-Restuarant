@@ -9,10 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Order = void 0;
+exports.Order = exports.OrderStatus = void 0;
 const typeorm_1 = require("typeorm");
 const order_item_entity_1 = require("./order-item.entity");
-const update_order_status_dto_1 = require("../dto/update-order-status.dto");
+const user_entity_1 = require("../../users/entities/user.entity");
+var OrderStatus;
+(function (OrderStatus) {
+    OrderStatus["PENDING"] = "Pending";
+    OrderStatus["OUT_FOR_DELIVERY"] = "Out for Delivery";
+    OrderStatus["DELIVERED"] = "Delivered";
+    OrderStatus["CANCELLED"] = "Cancelled";
+})(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
 let Order = class Order {
     id;
     status;
@@ -21,6 +28,7 @@ let Order = class Order {
     qrCode;
     estimatedArrival;
     deliveredAt;
+    user;
     items;
 };
 exports.Order = Order;
@@ -30,9 +38,9 @@ __decorate([
 ], Order.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        type: 'enum',
-        enum: update_order_status_dto_1.OrderStatus,
-        default: update_order_status_dto_1.OrderStatus.PENDING
+        type: 'varchar',
+        length: 20,
+        default: OrderStatus.PENDING
     }),
     __metadata("design:type", String)
 ], Order.prototype, "status", void 0);
@@ -41,7 +49,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Order.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 'pending' }),
+    (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Order.prototype, "startTime", void 0);
 __decorate([
@@ -57,7 +65,11 @@ __decorate([
     __metadata("design:type", Date)
 ], Order.prototype, "deliveredAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItem, item => item.order),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.orders),
+    __metadata("design:type", user_entity_1.User)
+], Order.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItem, (item) => item.order, { cascade: true }),
     __metadata("design:type", Array)
 ], Order.prototype, "items", void 0);
 exports.Order = Order = __decorate([

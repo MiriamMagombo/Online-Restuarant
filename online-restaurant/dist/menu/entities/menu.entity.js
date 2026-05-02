@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Menu = void 0;
 const typeorm_1 = require("typeorm");
+const order_item_entity_1 = require("../../orders/entities/order-item.entity");
 let Menu = class Menu {
     id;
     name;
     price;
     description;
+    orderItems;
 };
 exports.Menu = Menu;
 __decorate([
@@ -34,6 +36,10 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Menu.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItem, orderItem => orderItem.menuItem),
+    __metadata("design:type", Array)
+], Menu.prototype, "orderItems", void 0);
 exports.Menu = Menu = __decorate([
     (0, typeorm_1.Entity)()
 ], Menu);

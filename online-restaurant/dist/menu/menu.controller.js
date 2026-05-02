@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
@@ -65,7 +64,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, typeof (_a = typeof update_menu_dto_1.UpdateMenuDto !== "undefined" && update_menu_dto_1.UpdateMenuDto) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [String, update_menu_dto_1.UpdateMenuDto]),
     __metadata("design:returntype", void 0)
 ], MenuController.prototype, "update", null);
 __decorate([
