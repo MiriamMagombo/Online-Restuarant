@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const order_entity_1 = require("./entities/order.entity");
 const order_item_entity_1 = require("./entities/order-item.entity");
+const update_order_status_dto_1 = require("./dto/update-order-status.dto");
 let OrdersService = class OrdersService {
     orderRepository;
     orderItemRepository;
@@ -88,7 +89,7 @@ let OrdersService = class OrdersService {
         if (order.status === 'Delivered') {
             throw new common_1.BadRequestException('Order already delivered');
         }
-        order.status = 'Delivered';
+        order.status = update_order_status_dto_1.OrderStatus.DELIVERED;
         order.deliveredAt = new Date();
         return this.orderRepository.save(order);
     }

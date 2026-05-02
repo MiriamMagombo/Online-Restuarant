@@ -6,25 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OwnerModule = exports.MenuModule = void 0;
-class MenuModule {
-}
-exports.MenuModule = MenuModule;
+exports.MenuModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
 const menu_service_1 = require("./menu.service");
-const owner_controller_1 = require("./owner.controller");
+const menu_controller_1 = require("./menu.controller");
 const menu_entity_1 = require("./entities/menu.entity");
-const owner_module_1 = require("./owner.module");
-Object.defineProperty(exports, "OwnerModule", { enumerable: true, get: function () { return owner_module_1.OwnerModule; } });
-const owner_controller_2 = require("./owner.controller");
-let OwnerModule = class OwnerModule {
+let MenuModule = class MenuModule {
 };
-exports.OwnerModule = OwnerModule;
-exports.OwnerModule = owner_module_1.OwnerModule = __decorate([
+exports.MenuModule = MenuModule;
+exports.MenuModule = MenuModule = __decorate([
     (0, common_1.Module)({
-        imports: [TypeOrmModule.forFeature([menu_entity_1.Menu]), owner_module_1.OwnerModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([menu_entity_1.Menu])],
         providers: [menu_service_1.MenuService],
-        controllers: [owner_controller_1.MenuController, owner_controller_2.OwnerController]
+        controllers: [menu_controller_1.MenuController],
     })
-], owner_module_1.OwnerModule);
+], MenuModule);
 //# sourceMappingURL=menu.module.js.map

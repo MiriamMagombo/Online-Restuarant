@@ -19,7 +19,7 @@ let Menu = class Menu {
 };
 exports.Menu = Menu;
 __decorate([
-    (0, typeorm_1.primaryGenerationColumn)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Menu.prototype, "id", void 0);
 __decorate([
@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Menu.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)('decimal'),
+    (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2 }),
     __metadata("design:type", Number)
 ], Menu.prototype, "price", void 0);
 __decorate([
