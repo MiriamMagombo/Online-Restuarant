@@ -1,4 +1,4 @@
-import { Order } from '../../orders/entities/order.entity.ts';
+import { Order } from '../../orders/entities/order.entity';
 export declare class User {
     id: number;
     email: string;

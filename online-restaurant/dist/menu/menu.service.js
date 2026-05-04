@@ -5,51 +5,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OwnerService = exports.MenuService = void 0;
+exports.MenuService = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
+const menu_entity_1 = require("./entities/menu.entity");
 let MenuService = class MenuService {
-    menu = [];
-    nextId = 1;
-    getMenu() {
-        return this.menu;
+    menuRepository;
+    constructor(menuRepository) {
+        this.menuRepository = menuRepository;
     }
-    getMenuItem(id) {
-        const item = this.menu.find(m => m.id === id);
-        if (!item) {
-            throw new common_1.NotFoundException('Menu item not found');
-        }
-        return item;
+    create(createMenuDto) {
+        const menu = this.menuRepository.create(createMenuDto);
+        return this.menuRepository.save(menu);
     }
-    createMenuItem(item) {
-        const newItem = { id: this.nextId++, ...item };
-        this.menu.push(newItem);
-        return newItem;
+    findAll() {
+        return this.menuRepository.find();
     }
-    deleteMenuItem(id) {
-        const index = this.menu.findIndex(m => m.id === id);
-        if (index === -1) {
-            throw new common_1.NotFoundException('Menu item not found');
-        }
-        this.menu.splice(index, 1);
-        return { message: 'Menu item deleted successfully' };
+    async findOne(id) {
+        const menu = await this.menuRepository.findOneBy({ id });
+        if (!menu)
+            throw new common_1.NotFoundException(`Menu #${id} not found`);
+        return menu;
     }
-    patchMenuItem(id, updates) {
-        const item = this.getMenuItem(id);
-        const updatedItem = { ...item, ...updates };
-        const index = this.menu.findIndex(m => m.id === id);
-        this.menu[index] = updatedItem;
-        return updatedItem;
+    async update(id, updateMenuDto) {
+        await this.menuRepository.update(id, updateMenuDto);
+        return this.findOne(id);
+    }
+    async remove(id) {
+        const menu = await this.findOne(id);
+        return this.menuRepository.remove(menu);
     }
 };
 exports.MenuService = MenuService;
 exports.MenuService = MenuService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(menu_entity_1.Menu)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], MenuService);
-let OwnerService = class OwnerService {
-};
-exports.OwnerService = OwnerService;
-exports.OwnerService = OwnerService = __decorate([
-    (0, common_1.Injectable)()
-], OwnerService);
 //# sourceMappingURL=menu.service.js.map

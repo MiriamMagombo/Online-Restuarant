@@ -12,12 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderItem = void 0;
 const typeorm_1 = require("typeorm");
 const order_entity_1 = require("./order.entity");
+const menu_entity_1 = require("../../menu/entities/menu.entity");
 let OrderItem = class OrderItem {
     id;
-    orderId;
-    menuId;
     quantity;
     order;
+    menuItem;
 };
 exports.OrderItem = OrderItem;
 __decorate([
@@ -27,19 +27,15 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], OrderItem.prototype, "orderId", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], OrderItem.prototype, "menuId", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
 ], OrderItem.prototype, "quantity", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, order => order.items),
+    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, (order) => order.items),
     __metadata("design:type", order_entity_1.Order)
 ], OrderItem.prototype, "order", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => menu_entity_1.Menu, (menu) => menu.orderItems),
+    __metadata("design:type", menu_entity_1.Menu)
+], OrderItem.prototype, "menuItem", void 0);
 exports.OrderItem = OrderItem = __decorate([
     (0, typeorm_1.Entity)()
 ], OrderItem);

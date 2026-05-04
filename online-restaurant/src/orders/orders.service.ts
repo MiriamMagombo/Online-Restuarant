@@ -2,10 +2,9 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';           
-import { OrderItem } from './entities/order-item.entity'; 
-import { OrderStatus } from './dto/update-order-status.dto'; 
+import { OrderItem } from './entities/order-item.entity';  
 import { CreateOrderDto } from './dto/create-order.dto';   
-import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
+import { UpdateOrderStatusDto, OrderStatus } from './dto/update-order-status.dto';
 import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
 
 @Injectable()
@@ -23,11 +22,11 @@ export class OrdersService {
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
         const order = this.orderRepository.create({
-            userId: createOrderDto.userId,
-            status: 'Pending',
+            user: {id:createOrderDto.userId},
+            status: OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),
-            estimatedArrival: null, 
+            estimatedArrival: new Date(), 
         });
 
         const savedOrder = await this.orderRepository.save(order);
@@ -35,7 +34,7 @@ export class OrdersService {
         if(createOrderDto.items && createOrderDto.items.length > 0){
             const items = createOrderDto.items.map(item => this.orderItemRepository.create({
                 order: savedOrder,
-                menuId: item.menuId,
+                menuItem: { id: item.menuId },
                 quantity: item.quantity,
             })
         );
@@ -51,9 +50,12 @@ export class OrdersService {
         if (!order) throw new NotFoundException('order ${id} not  found');
         return order;
     }
+  
     async updateStatus(id: number, dto: UpdateOrderStatusDto): Promise<Order>{
         const order = await this.findOne(id);
-        order.status = dto.status;
+
+       if(dto.status)
+        { order.status = dto.status;}
 
         if (dto.status === 'Out for Delivery'){
             const now = new Date();
@@ -70,8 +72,8 @@ export class OrdersService {
         }
 
         const item = this.orderItemRepository.create({
-            orderId: id,
-            menuId: dto.menuId,
+            order:{id},
+            menuItem: { id: dto.menuId },
             quantity: dto.quantity,
         });
         await this.orderItemRepository.save(item);
@@ -87,7 +89,7 @@ export class OrdersService {
         if(order.status === 'Delivered'){
             throw new BadRequestException('Order already delivered');
         }
-        order.status = OrderStatus.DELIVERED;
+        order.status =OrderStatus.DELIVERED;
         order.deliveredAt = new Date();
         return this.orderRepository.save(order);
     }

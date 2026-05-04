@@ -1,19 +1,13 @@
-export interface MenuItem {
-    id: number;
-    name: string;
-    price: number;
-    description?: string;
-}
+import { Repository } from 'typeorm';
+import { Menu } from './entities/menu.entity';
+import { CreateMenuDto } from './dto/create-menu.dto';
+import { UpdateMenuDto } from './dto/update-menu.dto';
 export declare class MenuService {
-    private menu;
-    private nextId;
-    getMenu(): MenuItem[];
-    getMenuItem(id: number): MenuItem;
-    createMenuItem(item: Omit<MenuItem, 'id'>): MenuItem;
-    deleteMenuItem(id: number): {
-        message: string;
-    };
-    patchMenuItem(id: number, updates: Partial<MenuItem>): MenuItem;
-}
-export declare class OwnerService {
+    private menuRepository;
+    constructor(menuRepository: Repository<Menu>);
+    create(createMenuDto: CreateMenuDto): Promise<Menu>;
+    findAll(): Promise<Menu[]>;
+    findOne(id: number): Promise<Menu>;
+    update(id: number, updateMenuDto: UpdateMenuDto): Promise<Menu>;
+    remove(id: number): Promise<Menu>;
 }

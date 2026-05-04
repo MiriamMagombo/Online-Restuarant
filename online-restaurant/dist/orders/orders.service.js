@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const order_entity_1 = require("./entities/order.entity");
 const order_item_entity_1 = require("./entities/order-item.entity");
+const update_order_status_dto_1 = require("./dto/update-order-status.dto");
 let OrdersService = class OrdersService {
     orderRepository;
     orderItemRepository;
@@ -30,17 +31,17 @@ let OrdersService = class OrdersService {
     }
     async create(createOrderDto) {
         const order = this.orderRepository.create({
-            userId: createOrderDto.userId,
-            status: 'Pending',
+            user: { id: createOrderDto.userId },
+            status: update_order_status_dto_1.OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),
-            estimatedArrival: null,
+            estimatedArrival: new Date(),
         });
         const savedOrder = await this.orderRepository.save(order);
         if (createOrderDto.items && createOrderDto.items.length > 0) {
             const items = createOrderDto.items.map(item => this.orderItemRepository.create({
-                orderId: savedOrder.id,
-                menuId: item.menuId,
+                order: savedOrder,
+                menuItem: { id: item.menuId },
                 quantity: item.quantity,
             }));
             await this.orderItemRepository.save(items);
@@ -58,7 +59,9 @@ let OrdersService = class OrdersService {
     }
     async updateStatus(id, dto) {
         const order = await this.findOne(id);
-        order.status = dto.status;
+        if (dto.status) {
+            order.status = dto.status;
+        }
         if (dto.status === 'Out for Delivery') {
             const now = new Date();
             const timeElapsed = now.getTime() - order.startTime.getTime();
@@ -73,8 +76,8 @@ let OrdersService = class OrdersService {
             throw new common_1.BadRequestException('Can only add items to pending orders');
         }
         const item = this.orderItemRepository.create({
-            orderId: id,
-            menuId: dto.menuId,
+            order: { id },
+            menuItem: { id: dto.menuId },
             quantity: dto.quantity,
         });
         await this.orderItemRepository.save(item);
@@ -88,7 +91,7 @@ let OrdersService = class OrdersService {
         if (order.status === 'Delivered') {
             throw new common_1.BadRequestException('Order already delivered');
         }
-        order.status = 'Delivered';
+        order.status = update_order_status_dto_1.OrderStatus.DELIVERED;
         order.deliveredAt = new Date();
         return this.orderRepository.save(order);
     }

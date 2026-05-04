@@ -21,14 +21,20 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "^2.1.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "oracledb": "^6.10.0",
 =======
+=======
+    "oracledb": "^6.10.0",
+>>>>>>> b2f1e79695d0b8be9aca3a78f56ded34b4547ace
     "qrcode": "^1.5.4",
 >>>>>>> 99976cd00b9e452c074aca1ab930d58350d47c01
     "reflect-metadata": "^0.2.2",
