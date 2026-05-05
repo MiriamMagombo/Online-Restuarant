@@ -24,7 +24,7 @@ export class OrdersService {
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
         const order = this.orderRepository.create({
-            //user: {id:createOrderDto.userId},
+            user: {id:createOrderDto.userId},
             status: OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),

@@ -11,6 +11,8 @@ import { Menu } from './menu/entities/menu.entity';
 import { MenuModule } from './menu/menu.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { UsersController } from './users/users.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -30,8 +32,8 @@ import { AuthModule } from './auth/auth.module';
         logging: true, 
       }), 
     }),
-MenuModule, OrdersModule, AuthModule],
-  controllers: [AppController],
+MenuModule, OrdersModule, AuthModule, UsersModule],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}

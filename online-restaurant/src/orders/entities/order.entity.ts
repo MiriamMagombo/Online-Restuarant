@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { OrderItem } from './order-item.entity';
 //import { OrderStatus } from '../dto/update-order-status.dto';
-//import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 
 export enum OrderStatus {
   PENDING='Pending',
@@ -23,8 +23,8 @@ export class Order{
     })
     status!: OrderStatus;
 
-    //@Column()
-    //userId!: number;
+    @Column()
+    userId!: number;
 
 
     @Column({type: 'timestamp',default: ()=> 'CURRENT_TIMESTAMP'})
@@ -39,8 +39,8 @@ export class Order{
     @Column({nullable: true})
     deliveredAt!: Date;
 
-    //@ManyToOne(()=> User, (user) => user.orders)
-    //user!: User;
+    @ManyToOne(()=> User, (user) => user.orders)
+    user!: User;
 
     @OneToMany(() => OrderItem, (item) => item.order,{ cascade: true })
     items!: OrderItem[]
