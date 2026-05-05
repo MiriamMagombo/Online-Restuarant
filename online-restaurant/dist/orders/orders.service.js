@@ -96,7 +96,7 @@ let OrdersService = class OrdersService {
         return this.orderRepository.save(order);
     }
     generatedQrCode() {
-        return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
+        return 'ORD-${randomUUID()}';
     }
     async removeItemFromOrder(orderId, itemId) {
         const order = await this.findOne(orderId);
