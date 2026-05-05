@@ -11,9 +11,9 @@ class OrderItemDto{
 }
 
 export class CreateOrderDto{
-  @IsInt()
-  @IsNotEmpty()
-  userId!: number;
+  //@IsInt()
+  //@IsNotEmpty()
+  //userId!: number;
 
   @IsArray()
   @ValidateNested({each: true})

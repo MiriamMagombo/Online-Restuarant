@@ -13,8 +13,6 @@ exports.CreateOrderDto = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
 class OrderItemDto {
-    menuId;
-    quantity;
 }
 __decorate([
     (0, class_validator_1.IsInt)(),
@@ -27,15 +25,8 @@ __decorate([
     __metadata("design:type", Number)
 ], OrderItemDto.prototype, "quantity", void 0);
 class CreateOrderDto {
-    userId;
-    items;
 }
 exports.CreateOrderDto = CreateOrderDto;
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], CreateOrderDto.prototype, "userId", void 0);
 __decorate([
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),

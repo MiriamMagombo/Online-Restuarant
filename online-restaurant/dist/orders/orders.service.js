@@ -19,9 +19,8 @@ const typeorm_2 = require("typeorm");
 const order_entity_1 = require("./entities/order.entity");
 const order_item_entity_1 = require("./entities/order-item.entity");
 const update_order_status_dto_1 = require("./dto/update-order-status.dto");
+const crypto_1 = require("crypto");
 let OrdersService = class OrdersService {
-    orderRepository;
-    orderItemRepository;
     constructor(orderRepository, orderItemRepository) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
@@ -31,7 +30,6 @@ let OrdersService = class OrdersService {
     }
     async create(createOrderDto) {
         const order = this.orderRepository.create({
-            user: { id: createOrderDto.userId },
             status: update_order_status_dto_1.OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),
@@ -51,7 +49,7 @@ let OrdersService = class OrdersService {
     async findOne(id) {
         const order = await this.orderRepository.findOne({
             where: { id },
-            relations: ['items', 'items.menu'],
+            relations: ['items', 'items.menuItem'],
         });
         if (!order)
             throw new common_1.NotFoundException('order ${id} not  found');
@@ -96,7 +94,7 @@ let OrdersService = class OrdersService {
         return this.orderRepository.save(order);
     }
     generatedQrCode() {
-        return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
+        return `ORD-${(0, crypto_1.randomUUID)()}`;
     }
     async removeItemFromOrder(orderId, itemId) {
         const order = await this.findOne(orderId);

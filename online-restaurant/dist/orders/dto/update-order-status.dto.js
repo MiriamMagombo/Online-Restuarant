@@ -19,7 +19,6 @@ var OrderStatus;
     OrderStatus["CANCELLED"] = "Cancelled";
 })(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
 class UpdateOrderStatusDto {
-    status;
 }
 exports.UpdateOrderStatusDto = UpdateOrderStatusDto;
 __decorate([

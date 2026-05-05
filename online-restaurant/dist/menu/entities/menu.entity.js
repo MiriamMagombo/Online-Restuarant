@@ -13,11 +13,6 @@ exports.Menu = void 0;
 const typeorm_1 = require("typeorm");
 const order_item_entity_1 = require("../../orders/entities/order-item.entity");
 let Menu = class Menu {
-    id;
-    name;
-    price;
-    description;
-    orderItems;
 };
 exports.Menu = Menu;
 __decorate([

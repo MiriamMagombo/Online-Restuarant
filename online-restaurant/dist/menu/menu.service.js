@@ -18,7 +18,6 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const menu_entity_1 = require("./entities/menu.entity");
 let MenuService = class MenuService {
-    menuRepository;
     constructor(menuRepository) {
         this.menuRepository = menuRepository;
     }

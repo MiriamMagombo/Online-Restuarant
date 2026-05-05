@@ -6,6 +6,8 @@ import { OrderItem } from './entities/order-item.entity';
 import { CreateOrderDto } from './dto/create-order.dto';   
 import { UpdateOrderStatusDto, OrderStatus } from './dto/update-order-status.dto';
 import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
+import { randomUUID } from  'crypto';
+import * as QRCode from 'qrcode';
 
 @Injectable()
 export class OrdersService {
@@ -22,7 +24,7 @@ export class OrdersService {
 
     async create(createOrderDto: CreateOrderDto): Promise<Order> {
         const order = this.orderRepository.create({
-            user: {id:createOrderDto.userId},
+            //user: {id:createOrderDto.userId},
             status: OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),
@@ -45,7 +47,7 @@ export class OrdersService {
     async findOne(id: number): Promise<Order>{
         const order = await this.orderRepository.findOne({
             where: { id },
-            relations: ['items', 'items.menu'],
+            relations: ['items', 'items.menuItem'],
         });
         if (!order) throw new NotFoundException('order ${id} not  found');
         return order;
@@ -94,7 +96,7 @@ export class OrdersService {
         return this.orderRepository.save(order);
     }
     private generatedQrCode(): string{
-        return 'ORD-${Date.now()}-${Math.random().toString(36).substring(2, 9)}';
+        return `ORD-${randomUUID()}`;
     }
 
     async removeItemFromOrder(orderId: number, itemId: number): Promise<Order>{

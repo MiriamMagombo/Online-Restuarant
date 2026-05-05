@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = exports.OrderStatus = void 0;
 const typeorm_1 = require("typeorm");
 const order_item_entity_1 = require("./order-item.entity");
-const user_entity_1 = require("../../users/entities/user.entity");
 var OrderStatus;
 (function (OrderStatus) {
     OrderStatus["PENDING"] = "Pending";
@@ -21,15 +20,6 @@ var OrderStatus;
     OrderStatus["CANCELLED"] = "Cancelled";
 })(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
 let Order = class Order {
-    id;
-    status;
-    userId;
-    startTime;
-    qrCode;
-    estimatedArrival;
-    deliveredAt;
-    user;
-    items;
 };
 exports.Order = Order;
 __decorate([
@@ -44,10 +34,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Order.prototype, "status", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Order.prototype, "userId", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
@@ -64,10 +50,6 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
 ], Order.prototype, "deliveredAt", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.orders),
-    __metadata("design:type", user_entity_1.User)
-], Order.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItem, (item) => item.order, { cascade: true }),
     __metadata("design:type", Array)

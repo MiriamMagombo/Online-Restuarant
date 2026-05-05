@@ -23,20 +23,17 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
     "@nestjs/mapped-types": "^2.1.1",
+    "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "oracledb": "^6.10.0",
-=======
-=======
-    "oracledb": "^6.10.0",
->>>>>>> b2f1e79695d0b8be9aca3a78f56ded34b4547ace
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "qrcode": "^1.5.4",
->>>>>>> 99976cd00b9e452c074aca1ab930d58350d47c01
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.28"
@@ -50,6 +47,7 @@
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
+    "@types/passport-jwt": "^4.0.1",
     "@types/qrcode": "^1.5.6",
     "@types/supertest": "^7.0.0",
     "eslint": "^9.18.0",
