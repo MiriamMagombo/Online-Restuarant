@@ -13,10 +13,10 @@ export class User{
     password!: string;
 
     @Column()
-    firtsName!: string;
+    firstName!: string;
 
     @Column()
-    lasName!: string;
+    lastName!: string;
 
     @OneToMany(() => Order, (order) => order.user)
     orders!: Order[];
