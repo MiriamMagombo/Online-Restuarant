@@ -5,5 +5,5 @@ export declare enum OrderStatus {
     CANCELLED = "Cancelled"
 }
 export declare class UpdateOrderStatusDto {
-    status?: OrderStatus;
+    status: OrderStatus;
 }

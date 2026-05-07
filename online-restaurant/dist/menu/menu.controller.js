@@ -18,7 +18,6 @@ const menu_service_1 = require("./menu.service");
 const create_menu_dto_1 = require("./dto/create-menu.dto");
 const update_menu_dto_1 = require("./dto/update-menu.dto");
 let MenuController = class MenuController {
-    menuService;
     constructor(menuService) {
         this.menuService = menuService;
     }

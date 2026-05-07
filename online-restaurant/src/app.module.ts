@@ -1,15 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+//import { UsersModule } from './users/users.module';
 import { OrdersModule } from './orders/orders.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
+//import { User } from './users/entities/user.entity';
 import { Order } from './orders/entities/order.entity';
 import { OrderItem } from './orders/entities/order-item.entity';
 import { Menu } from './menu/entities/menu.entity';
 import { MenuModule } from './menu/menu.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UsersController } from './users/users.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -25,12 +28,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         password: config.get('DB_PASSWORD'), 
         serviceName: config.get('DB_SERVICE_NAME'), 
         synchronize: config.get('DB_SYNCHRONIZE') === 'true', 
-        entities: [Menu, Order, OrderItem, User], 
+        entities: [Menu, Order, OrderItem], 
         logging: true, 
       }), 
     }),
-MenuModule, UsersModule, OrdersModule],
-  controllers: [AppController],
+MenuModule, OrdersModule, AuthModule, UsersModule],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}

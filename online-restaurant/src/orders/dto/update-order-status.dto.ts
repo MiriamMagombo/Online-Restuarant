@@ -8,5 +8,5 @@ export enum OrderStatus{
 export class UpdateOrderStatusDto{
   @IsEnum(OrderStatus)
   @IsNotEmpty()
-  status?:OrderStatus;
+  status!:OrderStatus;
 }

@@ -10,10 +10,8 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const users_module_1 = require("./users/users.module");
 const orders_module_1 = require("./orders/orders.module");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./users/entities/user.entity");
 const order_entity_1 = require("./orders/entities/order.entity");
 const order_item_entity_1 = require("./orders/entities/order-item.entity");
 const menu_entity_1 = require("./menu/entities/menu.entity");
@@ -37,11 +35,11 @@ exports.AppModule = AppModule = __decorate([
                     password: config.get('DB_PASSWORD'),
                     serviceName: config.get('DB_SERVICE_NAME'),
                     synchronize: config.get('DB_SYNCHRONIZE') === 'true',
-                    entities: [menu_entity_1.Menu, order_entity_1.Order, order_item_entity_1.OrderItem, user_entity_1.User],
+                    entities: [menu_entity_1.Menu, order_entity_1.Order, order_item_entity_1.OrderItem],
                     logging: true,
                 }),
             }),
-            menu_module_1.MenuModule, users_module_1.UsersModule, orders_module_1.OrdersModule
+            menu_module_1.MenuModule, orders_module_1.OrdersModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

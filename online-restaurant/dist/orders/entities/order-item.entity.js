@@ -14,10 +14,6 @@ const typeorm_1 = require("typeorm");
 const order_entity_1 = require("./order.entity");
 const menu_entity_1 = require("../../menu/entities/menu.entity");
 let OrderItem = class OrderItem {
-    id;
-    quantity;
-    order;
-    menuItem;
 };
 exports.OrderItem = OrderItem;
 __decorate([

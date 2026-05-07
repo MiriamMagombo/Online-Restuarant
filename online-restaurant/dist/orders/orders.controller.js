@@ -53,7 +53,6 @@ const update_order_status_dto_1 = require("./dto/update-order-status.dto");
 const add_item_to_order_dto_1 = require("./dto/add-item-to-order.dto");
 const QRCode = __importStar(require("qrcode"));
 let OrdersController = class OrdersController {
-    ordersService;
     constructor(ordersService) {
         this.ordersService = ordersService;
     }
