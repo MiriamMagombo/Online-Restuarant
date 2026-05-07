@@ -4,7 +4,10 @@
   "description": "This is a repository for group 11 Tuesday",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "build": "nest build"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
   "dependencies": {
     "@nestjs/config": "^4.0.4",
     "@nestjs/typeorm": "^11.0.1",
+    "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "express": "^5.2.1",

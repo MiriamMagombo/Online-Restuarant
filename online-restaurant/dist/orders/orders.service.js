@@ -30,6 +30,7 @@ let OrdersService = class OrdersService {
     }
     async create(createOrderDto) {
         const order = this.orderRepository.create({
+            user: { id: createOrderDto.userId },
             status: update_order_status_dto_1.OrderStatus.PENDING,
             startTime: new Date(),
             qrCode: this.generatedQrCode(),
