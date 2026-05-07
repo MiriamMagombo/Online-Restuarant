@@ -17,6 +17,9 @@ const order_item_entity_1 = require("./orders/entities/order-item.entity");
 const menu_entity_1 = require("./menu/entities/menu.entity");
 const menu_module_1 = require("./menu/menu.module");
 const config_1 = require("@nestjs/config");
+const auth_module_1 = require("./auth/auth.module");
+const users_controller_1 = require("./users/users.controller");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -39,9 +42,9 @@ exports.AppModule = AppModule = __decorate([
                     logging: true,
                 }),
             }),
-            menu_module_1.MenuModule, orders_module_1.OrdersModule
+            menu_module_1.MenuModule, orders_module_1.OrdersModule, auth_module_1.AuthModule, users_module_1.UsersModule
         ],
-        controllers: [app_controller_1.AppController],
+        controllers: [app_controller_1.AppController, users_controller_1.UsersController],
         providers: [app_service_1.AppService],
     })
 ], AppModule);

@@ -3,6 +3,7 @@ declare class OrderItemDto {
     quantity: number;
 }
 export declare class CreateOrderDto {
+    userId: number;
     items?: OrderItemDto[];
 }
 export {};
