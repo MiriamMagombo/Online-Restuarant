@@ -1,5 +1,5 @@
 import { Order } from '../../orders/entities/order.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany,Relation } from 'typeorm';
 
 @Entity()
 export class User{
@@ -19,5 +19,5 @@ export class User{
     lastName!: string;
 
     @OneToMany(() => Order, (order) => order.user)
-    orders!: Order[];
+    orders!:Relation<Order[]>;
 }
