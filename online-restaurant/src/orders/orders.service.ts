@@ -6,14 +6,9 @@ import { OrderItem } from './entities/order-item.entity';
 import { CreateOrderDto } from './dto/create-order.dto';   
 import { UpdateOrderStatusDto, OrderStatus } from './dto/update-order-status.dto';
 import { AddItemToOrderDto } from './dto/add-item-to-order.dto';
-<<<<<<< HEAD
 import { randomUUID } from 'crypto';
 import * as QRCode from 'qrcode';
 
-=======
-import { randomUUID } from  'crypto';
-import * as QRCode from 'qrcode';
->>>>>>> f83db7dcb4257fc2b173946f28173504953dfdee
 
 @Injectable()
 export class OrdersService {
@@ -102,11 +97,7 @@ export class OrdersService {
         return this.orderRepository.save(order);
     }
     private generatedQrCode(): string{
-<<<<<<< HEAD
         return 'ORD-${randomUUID()}';
-=======
-        return `ORD-${randomUUID()}`;
->>>>>>> f83db7dcb4257fc2b173946f28173504953dfdee
     }
 
     async removeItemFromOrder(orderId: number, itemId: number): Promise<Order>{
