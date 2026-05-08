@@ -13,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { UsersModule } from './users/users.module';
         password: config.get('DB_PASSWORD'), 
         serviceName: config.get('DB_SERVICE_NAME'), 
         synchronize: config.get('DB_SYNCHRONIZE') === 'true', 
-        entities: [Menu, Order, OrderItem], 
+        entities: [Menu, Order, OrderItem, User], 
         logging: true, 
       }), 
     }),
