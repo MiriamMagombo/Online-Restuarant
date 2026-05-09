@@ -5,6 +5,9 @@ import { User } from '../users/entities/user.entity'; // Path to your User entit
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './Strategy/jwt.strategy';
+import { LocalStrategy } from './Strategy/local.strategy';
+
+
 @Module({
   imports: [
    
@@ -15,7 +18,7 @@ import { JwtStrategy } from './Strategy/jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, LocalStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
